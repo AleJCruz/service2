@@ -28,7 +28,7 @@ pipeline {
     steps {
         script {
             // Use JFrog CLI to publish artifacts
-            sh 'jfrog rt u build/libs/*.jar my-artifactory-repo/'
+            sh 'jfrog rt u build/libs/*.jar gr-gradle-dev/'
         }
     }
 }
