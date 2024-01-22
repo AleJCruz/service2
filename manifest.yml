@@ -1,0 +1,7 @@
+applications:
+  - name: my-spring-app
+    instances: 1
+    memory: 512M
+    path: build/libs/your-application.jar
+    buildpacks:
+      - java_buildpack
