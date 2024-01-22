@@ -10,12 +10,14 @@ pipeline {
         }
 
         stage('Build and Test') {
-            steps {
-                script {
-                    sh './gradlew build'
-                }
-            }
+    steps {
+        script {
+            sh 'chmod +x ./gradlew'
+            sh './gradlew build'
         }
+    }
+}
+
 
         stage('Endpoint Health Check') {
             steps {
