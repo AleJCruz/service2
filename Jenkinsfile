@@ -1,6 +1,5 @@
 pipeline {
     agent any
-    chmod +x gradlew
     stages {
         stage('Checkout') {
             steps {
