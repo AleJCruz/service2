@@ -24,17 +24,15 @@ pipeline {
             }
         }
 
-        stage('Deploy to Cloud Foundry') {
-            steps {
-                script {
-                    // Cloud Foundry login
-                    sh "cf login -a ${CF_API_ENDPOINT} -u ${CF_USERNAME} -p ${CF_PASSWORD}"
-
-                    // Use Cloud Foundry CLI to deploy
-                    sh 'cf push -f manifest.yml'
-                }
-            }
+       stage('Publish to Artifactory') {
+    steps {
+        script {
+            // Use JFrog CLI to publish artifacts
+            sh 'jfrog rt u build/libs/*.jar my-artifactory-repo/'
         }
+    }
+}
+
     }
 
     post {
