@@ -19,16 +19,15 @@ pipeline {
 }
 
 
-        stage('Endpoint Health Check') {
-            steps {
-                script {
-                    sh './gradlew bootRun &'
-                    sleep 30
-                    sh 'curl http://localhost:8080/actuator/health'
-                }
-            }
+        stage('Deploy to Cloud Foundry') {
+    steps {
+        script {
+            // Use Cloud Foundry CLI to deploy
+            sh 'cf push -f manifest.yml'
         }
     }
+}
+
 
     post {
         success {
