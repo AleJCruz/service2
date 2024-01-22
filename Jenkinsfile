@@ -1,5 +1,11 @@
 pipeline {
     agent any
+    environment {
+        CF_API_ENDPOINT = 'https://api.run.pivotal.io'
+        CF_USERNAME = 'mazinyer0717@gmail.com'
+        CF_PASSWORD = 'Ricky39255+'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -21,6 +27,9 @@ pipeline {
         stage('Deploy to Cloud Foundry') {
             steps {
                 script {
+                    // Cloud Foundry login
+                    sh "cf login -a ${CF_API_ENDPOINT} -u ${CF_USERNAME} -p ${CF_PASSWORD}"
+
                     // Use Cloud Foundry CLI to deploy
                     sh 'cf push -f manifest.yml'
                 }
