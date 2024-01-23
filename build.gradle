@@ -45,3 +45,12 @@ artifactory {
         }
     }
 }
+
+// Elimina la configuración de publishing
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
