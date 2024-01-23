@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'com.jfrog.artifactory' version '4.0.0' // Reemplaza con la versión correcta del complemento Artifactory
 }
 
 group = 'com.example'
@@ -20,6 +21,41 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        
+    }
+    dependencies {
+        //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+    }
+}
+
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+}
+
+artifactory {
+    contextUrl = "https://orexe.jfrog.io/artifactory"   // La base URL de Artifactory si no es reemplazada por el publicador/resolvedor
+    publish {
+        repository {
+            repoKey = 'gr-gradle-dev-local'
+            username = "u202114593@upc.edu.pe"
+            password = "cmVmdGtuOjAxOjE3Mzc1NjgzODc6VGh0V2NQeDdMZnBqNlVIT1hrY2tiZUxxanU0"
+            maven = true
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'gr-gradle-dev-local'
+            username = "u202114593@upc.edu.pe"
+            password = "cmVmdGtuOjAxOjE3Mzc1NjgzODc6VGh0V2NQeDdMZnBqNlVIT1hrY2tiZUxxanU0"
+            maven = true
+        }
+    }
 }
 
 tasks.named('test') {
