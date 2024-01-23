@@ -2,8 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.1.4'
-    // Agrega el plugin de JFrog Artifactory
-    id 'com.jfrog.artifactory' version '4.25.0'
 }
 
 group = 'com.example'
@@ -26,31 +24,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-// Configuración para publicar artefactos en Artifactory
-artifactory {
-    contextUrl = 'https://orexe.jfrog.io/artifactory' // Reemplaza con la URL de tu Artifactory
-    publish {
-        repository {
-            repoKey = 'service2gradle' // Reemplaza con el nombre de tu repositorio en Artifactory
-            // Configura el usuario con el correo y el token de identidad
-            username = 'u202114593@upc.edu.pe'
-            password = 'cmVmdGtuOjAxOjE3Mzc1NjI2NzQ6U25JNEpXcGtBZHB5eFh3bjRjb3czRzh2d1p4'
-        }
-        defaults {
-            publications('mavenJava')
-            publishArtifacts = true
-            publishPom = true
-        }
-    }
-}
-
-// Elimina la configuración de publishing
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
 }
