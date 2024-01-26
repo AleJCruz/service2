@@ -27,6 +27,7 @@ pipeline {
             }
         }
         
+        
         stage('Build and Deploy to Azure App Service') {
             steps {
                 script {
@@ -34,7 +35,7 @@ pipeline {
                     sh './gradlew build'
 
                     // Desplegar a Azure App Service usando Azure CLI
-                    sh "az webapp deploy --name $AZURE_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --type jar --src-path ./build/libs --output folder"
+                    sh "az webapp deploy --name $AZURE_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --type jar --src-path ./build/libs"
                 }
             }
         }
