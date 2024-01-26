@@ -23,6 +23,15 @@ pipeline {
                 }
             }
         }
+        stage('Build and Deploy to Azure App Service') {
+    steps {
+        script {
+            sh './gradlew build'
+            azureWebAppPublish appName: 'service2v2', resourceGroup: 'service2v2_group', filePath: '**/build/libs/*.jar'
+        }
+    }
+}
+
 
        stage('Publish to Artifactory') {
     steps {
