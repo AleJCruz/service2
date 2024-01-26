@@ -26,29 +26,42 @@ pipeline {
                 }
             }
         }
-        
-        
-        stage('Build and Deploy to Azure App Service') {
+
+        stage('Debugging - List Files') {
             steps {
                 script {
-                    // Construir la aplicación (ajusta según tu proyecto)
-                    sh './gradlew build'
-
-                    // Desplegar a Azure App Service usando Azure CLI
-                    sh "az webapp deploy --name $AZURE_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --type jar --src-path ./build/libs"
+                    // Debugging: List files in the build/libs directory
+                    sh "ls -la $WORKSPACE/build/libs"
                 }
             }
         }
 
-       stage('Publish to Artifactory') {
-    steps {
-        script {
-            // Use JFrog CLI to publish artifacts
-            sh 'jfrog rt u build/libs/*.jar gr-gradle-dev/'
+        stage('Debugging - Deploy to Azure App Service') {
+            steps {
+                script {
+                    // Debugging: Deploy to Azure App Service
+                    sh "az webapp deploy --name $AZURE_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --type jar --src-path $WORKSPACE/build/libs/your-app.jar"
+                }
+            }
         }
-    }
-}
 
+        stage('Debugging - Publish to Artifactory') {
+            steps {
+                script {
+                    // Debugging: Publish to Artifactory
+                    sh 'jfrog rt u $WORKSPACE/build/libs/your-app.jar gr-gradle-dev/'
+                }
+            }
+        }
+
+        stage('Publish to Artifactory') {
+            steps {
+                script {
+                    // Actual Publish to Artifactory without debugging
+                    sh 'jfrog rt u build/libs/*.jar gr-gradle-dev/'
+                }
+            }
+        }
     }
 
     post {
