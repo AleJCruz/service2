@@ -36,12 +36,15 @@ pipeline {
             }
         }
 
-         stage('Build and Deploy to Azure App Service') {
+        stage('Build and Deploy to Azure App Service') {
             steps {
                 script {
-                    // Navigate to the build/libs directory
+                    // Configurar las credenciales de Azure
+                    sh "az login --service-principal --username b76f9d8f-9604-447e-9972-4bbeba02db38 --password go_8Q~d1ttDvlcj4fcU7Tn~mNvDxeWigrnkEEdaa --tenant e3de6039-942b-4f3e-b8fa-8d8008f8fd74"
+
+                    // Navegar al directorio build/libs
                     dir("$WORKSPACE/build/libs") {
-                        // Deploy to Azure App Service using Azure CLI
+                        // Desplegar en Azure App Service usando Azure CLI
                         sh "az webapp deploy --name $AZURE_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --type jar --src-path ./service1-0.0.1-SNAPSHOT.jar"
                     }
                 }
