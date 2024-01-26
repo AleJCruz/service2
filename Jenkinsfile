@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     // Configurar las credenciales de Azure
-                    sh "az login --service-principal --username 625c5556-e32f-42ef-b464-e763dcf68f30 --password go_8Q~d1ttDvlcj4fcU7Tn~mNvDxeWigrnkEEdaa --tenant e3de6039-942b-4f3e-b8fa-8d8008f8fd74"
+                    sh "az login --service-principal --username b76f9d8f-9604-447e-9972-4bbeba02db38 --password go_8Q~d1ttDvlcj4fcU7Tn~mNvDxeWigrnkEEdaa --tenant e3de6039-942b-4f3e-b8fa-8d8008f8fd74"
 
                     // Navegar al directorio build/libs
                     dir("$WORKSPACE/build/libs") {
