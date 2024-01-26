@@ -46,13 +46,18 @@
     </pluginRepositories>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-            </plugin>
-        </plugins>
-    </build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <source>1.8</source> <!-- Puedes ajustar esto según la versión de Java que estés utilizando -->
+                <target>1.8</target> <!-- Puedes ajustar esto según la versión de Java que estés utilizando -->
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
 
 </project>
