@@ -36,14 +36,18 @@ pipeline {
             }
         }
 
-        stage('Debugging - Deploy to Azure App Service') {
+         stage('Build and Deploy to Azure App Service') {
             steps {
                 script {
-                    // Debugging: Deploy to Azure App Service
-                    sh "az webapp deploy --name $AZURE_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --type jar --src-path $WORKSPACE/build/libs/your-app.jar"
+                    // Navigate to the build/libs directory
+                    dir("$WORKSPACE/build/libs") {
+                        // Deploy to Azure App Service using Azure CLI
+                        sh "az webapp deploy --name $AZURE_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --type jar --src-path ./service1-0.0.1-SNAPSHOT.jar"
+                    }
                 }
             }
         }
+
 
         stage('Debugging - Publish to Artifactory') {
             steps {
